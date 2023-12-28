@@ -3,7 +3,7 @@ import React from 'react';
 import {CardType} from "@/types/componentTypes"
 import Tag from './tag';
 var cardTitle = "Home Title"
-
+var count :number = 8
 const CardComponent = (prop:CardType) => {
   return (
     <div className="bg-white shadow-md rounded-md p-6 mb-4">
@@ -16,6 +16,7 @@ const CardComponent = (prop:CardType) => {
          <Tag tagtext={prop.tag ? prop.tag : "No Tags Found"}/>
         
       </div>
+      {count<10 ?<span>{count}</span> : ""}
     </div>
   );
 };

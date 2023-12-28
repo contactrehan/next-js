@@ -11,6 +11,7 @@ const Home = () => {
       </p>
       
       <CardComponent title = {homeTitle} description='Home Description' tag='Home Tags' />
+      <CardComponent title = {homeTitle} description='Home Description 2' tag='Home Tags 2 ' />
     </div>
   );
 };
