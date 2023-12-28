@@ -11,7 +11,7 @@ const AboutPage = () => {
         Welcome to our About page! We are a dedicated team passionate about providing valuable information and services.
       </p>
       
-      <CardComponent title={'About Tile'} description={'About Description'} tag={'About Tags'} />
+      <CardComponent title={'About Title'} description={'About Description'} tag={'About Tags'} />
     </div>
   );
 };

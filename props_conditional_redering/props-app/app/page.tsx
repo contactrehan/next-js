@@ -1,7 +1,6 @@
-// pages/about.js
-
 import React from 'react';
 import CardComponent from './components/Card';
+const homeTitle: string = "Home Title" 
 
 const Home = () => {
   return (
@@ -11,7 +10,7 @@ const Home = () => {
         Welcome to your HomePage! We are a dedicated team passionate about providing valuable information and services.
       </p>
       
-      <CardComponent title={'Home Title'} description={'Home Description'} tag={'Home Tags'} />
+      <CardComponent title = {homeTitle} description='Home Description' tag='Home Tags' />
     </div>
   );
 };

@@ -1,16 +1,19 @@
-// components/Card.js
 "use client"
 import React from 'react';
 import {CardType} from "@/types/componentTypes"
 import Tag from './tag';
+var cardTitle = "Home Title"
+
 const CardComponent = (prop:CardType) => {
   return (
     <div className="bg-white shadow-md rounded-md p-6 mb-4">
       <h2 className="text-xl font-semibold mb-4">{prop.title}</h2>
-      <p className="text-gray-600 mb-4">{prop.description}</p>
+      <p className="text-gray-600 mb-4">
+        {(prop.description) ? prop.description : "No Description Found"  }
+        </p>
       <div className="flex flex-wrap">
         
-         <Tag tagtext={prop.tag}/>
+         <Tag tagtext={prop.tag ? prop.tag : "No Tags Found"}/>
         
       </div>
     </div>
