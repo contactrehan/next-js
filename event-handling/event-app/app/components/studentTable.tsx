@@ -7,7 +7,7 @@ const StudentTable = (prop:Student) => {
     <table className="min-w-full border border-gray-200">
       <thead>
         <tr>
-          <th className="py-2 px-4 border-b">Name</th>
+          <th   className="py-2 px-4 border-b">Name</th>
           <th className="py-2 px-4 border-b">Gender</th>
           <th className="py-2 px-4 border-b">Physics</th>
           <th className="py-2 px-4 border-b">Maths</th>

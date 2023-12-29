@@ -1,5 +1,5 @@
 
-"use client"
+
 
 import { ButtonType } from "@/types/componentTypes";
 const Button = (prop:ButtonType) => {
