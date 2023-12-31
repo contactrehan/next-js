@@ -17,3 +17,8 @@ type TagType = {
     tagtext: string
 }
 export type {TagType}
+export type pageCardType ={
+    description?:string,
+    title:string,
+
+}

@@ -15,6 +15,11 @@ const Navbar = () => {
             Student
           </div>
         </Link>
+        <Link href="/newcard">
+          <div className="text-white font-bold text-lg cursor-pointer mr-4">
+            New Card
+          </div>
+        </Link>
         <Link href="/counter">
           <div className="text-white font-bold text-lg cursor-pointer mr-4">
             Counter
