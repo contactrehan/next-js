@@ -1,4 +1,6 @@
-import Button from "./components/button";
+
+
+import CounterSection from "./components/counterSection/counterSection";
 
 
 export default function Home() {
@@ -6,11 +8,11 @@ export default function Home() {
 
   return (
     <>
-    <h1>Use State</h1>
+    <h1>On CLick Handler</h1>
 
     <br /><br />
-    
-    <Button age={20} name={"Ali"}/>
+   <CounterSection/>
+   
     </>
   )
 }
