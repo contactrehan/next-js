@@ -1,12 +1,25 @@
 "use client"
+
+import { useState } from "react";
+
+
 export default function CounterButton() {
-    const onClickHandler = ()=>{
-        alert("Clicked")
-    }
+  
+  const [count,setCount] = useState(0)
   return (
+
+
     <div>
-      
-      <button onClick={onClickHandler} style={{ backgroundColor: "red" }}>Add</button>
+     
+      <br />
+      <button onClick={()=>{console.log ("OnClickButton 1")
+        setCount(count+1)}} >+</button> 
+      {count}
+      <button onClick={()=>{console.log ("OnClickButton 2")
+        setCount(count-1)}} >-</button> 
+      <br />
+      <button onClick={()=>{console.log ("OnClickButton 3")
+        setCount(0)}} >Reset</button> 
     </div>
   );
 }
