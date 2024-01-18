@@ -3,18 +3,30 @@
 import { SetStateAction, useState } from "react"
 import DisplayContact from "./displayContactForm"
 import { OnChangeEventType, contactInfo } from "@/types/componentTypes"
-
+import * as yup from "yup"
 
 
 export default function ContactForm()
 {
-  
+  const contactInfoSchema = yup.object().shape({
+    name:yup.string().required().min(5).max(10),
+    email:yup.string().required().email(),
+    message:yup.string().required(),
+    phone:yup.number().integer().positive().min(10)
+     
+  })
+
+  const [errors , setErrors] = useState<string[]>([])
+
+
   const [contactInfo,setContactInfo] = useState<contactInfo>({
-    name:"default",
-    email:"default",
-    message:"default",
+    name:"",
+    email:"",
+    message:"",
     phone:0
 })
+
+const [contactList, setContactList] = useState<contactInfo[]>([])
 
   const onChangeHandler = (e:OnChangeEventType)=>{
     let userDetail = {
@@ -27,26 +39,41 @@ export default function ContactForm()
    return (setContactInfo(userDetail))
   
   }  
-  // var [userName,setUserName] = useState<string>("Name")
-  // var [userEmail,setUserEmail] = useState<string>("Email")
-  // var [userMessage,setUserMessage] = useState<string>("Message")
-  const onClickHandler = ()=>{
-    alert("clicked")
-  }
-  // const getUserNameHandler = (event:OnChangeEventType )=>{
-  //   console.log("getUserNameHandler Call",event.target.value)
-  //   setUserName(event.target.value)
+
+  const onClickHandler = async()=>{
+
+
+    try {
+
+      const result = await contactInfoSchema.validate(contactInfo)
+      console.log(result);
+      
+      let newContactList:contactInfo[] = [...contactList ,contactInfo]
+    setContactList(newContactList)
+    setContactInfo({
+      email:"",
+      message:"",
+      name:"",
+      phone:0
+    })
+    // console.log("newContactList",newContactList)
+      
+    } catch (err) {
+      setErrors(err.errors)
+      console.log("Error",err.errors)
+     
+    }
     
-  // }
-  // const getUserEmailHandler = (event:OnChangeEventType)=>{
-  //   console.log("getUserEmailHandler Call",event.target.value)
-  //   setUserEmail(event.target.value)
-  // }
-  // const getUserMessageHandler = (event:OnChangeEventType)=>{
-  //   console.log("getUserMessageHandler Call",event.target.value)
-  //   setUserMessage(event.target.value)
-  // }
-  console.log(contactInfo)
+
+
+
+
+
+
+    
+  }
+ 
+  // console.log(contactInfo)
  
     return(
         <>
@@ -57,6 +84,7 @@ export default function ContactForm()
           Name
         </label>
         <input
+        value={contactInfo.name}
         onChange={onChangeHandler}
           type="text"
           id="name"
@@ -71,6 +99,7 @@ export default function ContactForm()
           Email
         </label>
         <input
+        value={contactInfo.email}
         onChange={onChangeHandler}
           type="email"
           id="email"
@@ -84,6 +113,7 @@ export default function ContactForm()
           Phone
         </label>
         <input
+        value={contactInfo.phone}
         onChange={onChangeHandler}
           type="number"
           id="phone"
@@ -98,6 +128,7 @@ export default function ContactForm()
           Message
         </label>
         <textarea
+        value={contactInfo.message}
         onChange={onChangeHandler}
           id="message"
           name="message"
@@ -108,6 +139,14 @@ export default function ContactForm()
       </div>
 
       <div className="mb-6">
+
+        {errors.map((err)=>{
+          return(
+            < >
+            <h3 className="text-red-700">{err}</h3>
+            </>
+          )
+        })}
         <button 
         onClick={onClickHandler}
           type="submit"
@@ -118,7 +157,7 @@ export default function ContactForm()
       </div>
     </form>
     {/* {contactInfo=} */}
-    <DisplayContact  phone={contactInfo.phone} name={contactInfo.name} message={contactInfo.message} email={contactInfo.email}       />
+    <DisplayContact contactData={contactList}         />
         </>
     )
 }
