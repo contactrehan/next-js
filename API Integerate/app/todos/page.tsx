@@ -1,39 +1,49 @@
 "use client"
-import axios from "axios"
-import { useState } from "react"
-    
+import { useState, useEffect } from "react";
+import axios from "axios";
+
 export default function Todos() {
-// https://dummyjson.com/todos
-const getTodos  = async()=>{
-    try {
-      const result = await axios.get("https://dummyjson.com/todos")
-      console.log("Data from Api",result.data.todos)
-      setTodos(result.data.todos)
-   } catch (error) {
-       console.log("error",error );
-       
-   }
-}
-const [todos ,setTodos] = useState([])
-  return (
-    <div>
-       <h1 className="text-center text-5xl font-bold m-4 p-2" >Todos</h1>
+  const [todos, setTodo] = useState([]);
+  const [loader, setLoader] = useState(false)
+  const [reFetchTodo, setRefetchTodo] = useState(false)
+  useEffect(()=>{
 
-       <button className="bg-red-600" onClick={getTodos}>
-        Todos
-       </button>
-       {todos.map((todo,id)=>{
-        return (
-            <div key={id}>
-    
-            {todo?.id} - {todo.todo} 
-            </div>
-              
-                
+    const fetchTodo = async () => {
+      try {
+        setLoader(true)
+        const response = await axios.get("https://dummyjson.com/todos");
+        const data = response.data;
+        setTodo(data.todos);
+      } catch (error) {
+        console.log(`Error: ${error}`);
+      }
+      finally{
+        setLoader(false)
+        setRefetchTodo(false)
+      }
+    };
+    fetchTodo()
+  },[reFetchTodo])
+  // delete todo function
+  const deleteTodo = ()=>{
+    setTodo([])
+  }
+  //refetching todo function for onclick
+  const reFetchingTodo = ()=>{
+    setRefetchTodo(true)
+  }
+  return <><h1>Fetching Todo</h1>
+  {loader && "Loading..."}
+  <br />
+  <button type="button" onClick={deleteTodo} className="text-red-500 bg-black"> Delete Todo</button>
+  <button type="button" onClick={reFetchingTodo} className="text-red-500 bg-black ml-2"> Refetch Todo</button>
 
-        )
-       })}
-       
-        </div>
-  )
+  {todos.map((elem:{id:number,todo:string})=>{
+    return <div key={elem.id} >
+    {elem.id} - {elem.todo}
+
+    </div>
+  })}
+  
+  </>;
 }
