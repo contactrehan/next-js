@@ -1,18 +1,22 @@
 
 import { client } from "@/config/contentful";
-const getBlogPost = async ()=>{
+
+
+const GetBlogPost = async ()=>{
   const blogPosts = await client.getEntries({ content_type: "blog" }) 
   return await blogPosts.items;
-
-  
-
 }
 
-export default function BlogPostPage(params:{params:{slug:string}}) {
-getBlogPost()
+export default async function BlogPostPage({params}:{params:{slug:string}}) {
+  const data =  await GetBlogPost()
+  
+  const blog = data.filter((blog)=>blog.fields.postno === parseFloat(params.slug))
+
   return (
     <> 
-      <h1>Blog Post Page</h1>
+      <h1>
+        {blog[0].fields.title}
+      </h1>
       
     
     </>
