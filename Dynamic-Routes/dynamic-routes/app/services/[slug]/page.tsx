@@ -21,6 +21,7 @@ const services = [
   
   export default function Services({ params }: { params: { slug: string } }) {
     const service = services.filter((item) => item.slug === params.slug);
+    console.log(service)
   
     return (
       <div className="p-4 border rounded shadow">

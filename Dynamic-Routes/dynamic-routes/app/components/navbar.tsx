@@ -15,6 +15,9 @@ const Navbar = () => {
         <Link href="/services">
           <div className="text-white cursor-pointer hover:text-gray-300 transition">Services</div>
         </Link>
+        <Link href="/users">
+          <div className="text-white cursor-pointer hover:text-gray-300 transition">Users</div>
+        </Link>
       </div>
     </nav>
   );
