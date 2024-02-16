@@ -1,34 +1,32 @@
-"use client"
-import Image from 'next/image';
-// import { documentToHtmlString } from "@contentful/rich-text-react-renderer";
-import { BlogCardType } from '@/types/componentType';
-import image from 'next/image';
 
-export default function BlogPostCard(props:BlogCardType) {
-  // Destructure image field for flexibility (assetUrl, width, height, fileName)
-  const { fields: { file: { url, details: { image: { width, height }, fileName } } } } = Image;
+import Link from 'next/link';
 
-  // Optimized image rendering with fallback and alt text
-  const imageProps = {
-    layout: 'responsive',
-    width: width,
-    height: height,
-    src: url,
-    alt: props.title || fileName, // Use title as alt text if available
-    fallback: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=',
-    blurDataURL: url,
-  };
+interface BlogCardType {
+  url_image: string;
+  title: string;
+  description: string;
+  slug: string;
+}
 
-  // Handle Contentful Rich Text descriptions (assuming `description` is rich text)
-  const processedDescription = documentToHtmlString(props.description);
-
+const BlogPostCard: React.FC<BlogCardType> = ({ url_image, title, description, slug }) => {
   return (
-    <div className="card">
-      <Image {...imageProps} />
-      <div className="card-content">
-        <h2>{props.description}</h2>
-        <div dangerouslySetInnerHTML={{ __html: processedDescription }} />
+    <div className="flex flex-col mb-8 bg-white p-4 rounded shadow-md">
+      <img
+        className="w-full h-48 object-cover rounded-t-md"
+        src={url_image}
+        alt={title}
+      />
+      <div className="flex flex-col p-4 space-y-4">
+        <h2 className="text-2xl font-bold text-gray-800">{title}</h2>
+        <p className="text-gray-600">{description}</p>
+        <Link href={`/blogs/${slug}`}>
+          <button className="px-4 py-2 text-white rounded bg-blue-500 hover:bg-blue-700">
+            Read More
+          </button>
+        </Link>
       </div>
     </div>
   );
-}
+};
+
+export default BlogPostCard;
